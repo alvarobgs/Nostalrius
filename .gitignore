@@ -1,0 +1,16 @@
+*.lastbuildstate
+*.tlog
+*.ipch
+*.ipch
+*.exe
+*.pdb
+*.dll
+*.obj
+*.log
+
+vc14/x64/
+vc14/.vs/
+vc14/.vs/theforgottenserver/v15/Browse.VC.db
+vc14/.vs/theforgottenserver/v15/ipch/ba8106b03bee8153.ipch
+vc14/.vs/theforgottenserver/v15/Browse.VC.opendb
+vc14/theforgottenserver.vcxproj.user
