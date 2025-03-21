@@ -112,8 +112,8 @@ class ServiceManager
 
 		std::unordered_map<uint16_t, ServicePort_ptr> acceptors;
 
-		boost::asio::io_context io_service;
-		boost::asio::deadline_timer death_timer { io_service };
+		boost::asio::io_context io_context;
+		boost::asio::deadline_timer death_timer { io_context };
 		bool running = false;
 };
 
@@ -130,7 +130,7 @@ bool ServiceManager::add(uint16_t port)
 	auto foundServicePort = acceptors.find(port);
 
 	if (foundServicePort == acceptors.end()) {
-		service_port = std::make_shared<ServicePort>(io_service);
+		service_port = std::make_shared<ServicePort>(io_context);
 		service_port->open(port);
 		acceptors[port] = service_port;
 	} else {

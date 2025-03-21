@@ -35,14 +35,14 @@ ServiceManager::~ServiceManager()
 
 void ServiceManager::die()
 {
-	io_service.stop();
+	io_context.stop();
 }
 
 void ServiceManager::run()
 {
 	assert(!running);
 	running = true;
-	io_service.run();
+	io_context.run();
 }
 
 void ServiceManager::stop()
@@ -55,7 +55,7 @@ void ServiceManager::stop()
 
 	for (auto& servicePortIt : acceptors) {
 		try {
-			io_service.get_executor().post(&ServicePort::onStopServer, servicePortIt.second);
+			boost::asio::post(io_context, [servicePort = servicePortIt.second]() { servicePort->onStopServer(); });
 		} catch (boost::system::system_error& e) {
 			std::cout << "[ServiceManager::stop] Network Error: " << e.what() << std::endl;
 		}
