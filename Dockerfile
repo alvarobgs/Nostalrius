@@ -32,7 +32,7 @@ RUN make
 RUN mv tfs ../
 WORKDIR /otserv
 
-COPY data .
+COPY data ./data/
 COPY config.lua .
 
 EXPOSE 7171
