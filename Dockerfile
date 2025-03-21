@@ -19,7 +19,11 @@ ENV LUA_INCLUDE_DIR=/usr/include/luajit-2.1/
 
 RUN apk add mariadb-dev lua-dev pugixml-dev git
 RUN apk add luajit=2.1.0_beta3-r4 luajit-dev=2.1.0_beta3-r4 --repository="https://dl-cdn.alpinelinux.org/alpine/v3.10/main/"
-COPY . /otserv/.
+
+COPY cmake /otserv/cmake/
+COPY src /otserv/src/
+COPY CMakeLists.txt /otserv/CMakeLists.txt
+
 WORKDIR /otserv/src
 
 RUN cmake ..
@@ -28,8 +32,12 @@ RUN make
 RUN mv tfs ../
 WORKDIR /otserv
 
+COPY data .
+COPY config.lua .
+
 EXPOSE 7171
 
 ENTRYPOINT ./tfs
 
 #docker run -it --rm nost /bin/ash
+
